@@ -4,7 +4,7 @@
     	[
           'templates',
           'ngRoute',
-          'ngResources',
+          'ngResource',
           'appControllers',
           'appServices',
         ]);

@@ -250,6 +250,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
+  execjs
   factory_girl_rails
   faker
   jbuilder (~> 2.0)
