@@ -157,6 +157,7 @@ div.major-news
   margin :2.5%;
   height: 120px;
   float: left;
+  outline: solid 1px black;
 }
 
 div.major-news-header
