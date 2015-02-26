@@ -5,6 +5,124 @@ body *
   outline: solid 1px red;
 }
 
+/* Generic Classes */
+.di
+{
+	background-color: blue;
+}
+
+.nae
+{
+	background-color: green;
+}
+
+.ta
+{
+	background-color: red;
+}
+
+.emt
+{
+	background-color: grey;
+}
+
+.combine
+{
+	background-color: orange;
+}
+
+.ml
+{
+	background-color: gold;
+}
+
+/* Navbar */
+nav
+{
+	width: 100%;
+ height: 100%;
+ background-color: black;
+ color: white;
+}
+
+nav ul
+{	
+	width: 100%;
+ height: 100%;
+	list-style: none;
+ background-color: black;
+}
+
+nav ul li
+{
+	display: block;
+	float: left;
+	width: 16.66%;
+ height: 100%;
+ background-color: black;
+ text-align: center;
+}
+
+nav li.nav-ml
+{
+	border-top: solid 2px gold;
+}
+
+nav li.nav-ml:hover
+{
+	background-color: gold;
+}
+
+nav li.nav-di
+{
+	border-top: solid 2px blue;
+}
+
+nav li.nav-di:hover
+{
+	background-color: blue;
+}
+
+nav li.nav-nae
+{
+	border-top: solid 2px green;
+}
+
+nav li.nav-nae:hover
+{
+	background-color: green;
+}
+
+nav li.nav-ta
+{
+	border-top: solid 2px red;
+}
+
+nav li.nav-ta:hover
+{
+	background-color: red;
+}
+
+nav li.nav-emt
+{
+	border-top: solid 2px grey;
+}
+
+nav li.nav-emt:hover
+{
+	background-color: grey;
+}
+
+nav li.nav-combine
+{
+	border-top: solid 2px orange;
+}
+
+nav li.nav-combine:hover
+{
+	background-color: orange;
+}
+
 div#container
 {
   width: 80%;
@@ -17,6 +135,7 @@ header
 {
   width: 100%;
   height: 50px;
+
 }
 
 div#news
@@ -30,14 +149,37 @@ section#left
 {
   width: 65%;
   float: left;
+  border-bottom: solid 1px grey;
+  padding-bottom: 5px;
 }
 
 div.major-news
 {
   width: 45%;
   margin :2.5%;
-  height: 100px;
+  height: 120px;
   float: left;
+  outline: solid 1px black;
+}
+
+div.major-news-header
+{
+  width: 100%;
+  height: 20px;
+  margin: 0px;
+  color: white;
+  padding-left: 5px;
+}
+
+img.major-news-img
+{
+  width: 100%;
+  max-height: 100px;
+}
+
+div.major-news p
+{
+  overflow-y: auto;
 }
 
 div.minor-news
@@ -58,4 +200,9 @@ article.left
   margin-top: 20px;
   width: 100%;
   height: 300px;
+}
+
+article.left h1
+{
+  text-align: center;
 }
