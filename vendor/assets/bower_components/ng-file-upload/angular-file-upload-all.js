@@ -1,7 +1,7 @@
 /**!
  * AngularJS file upload/drop directive and service with progress and abort
  * @author  Danial  <danial.farid@gmail.com>
- * @version 3.0.2
+ * @version 3.0.7
  */
 (function() {
 	
@@ -27,7 +27,7 @@ if (window.XMLHttpRequest && !window.XMLHttpRequest.__isFileAPIShim) {
 	
 var angularFileUpload = angular.module('angularFileUpload', []);
 
-angularFileUpload.version = '3.0.2';
+angularFileUpload.version = '3.0.7';
 angularFileUpload.service('$upload', ['$http', '$q', '$timeout', function($http, $q, $timeout) {
 	function sendHttp(config) {
 		config.method = config.method || 'POST';
@@ -263,31 +263,28 @@ function handleFileSelect(scope, elem, attr, ngModel, $parse, $timeout, $compile
 	}
 	
 	function resetAndClick(evt) {
-		var isChanged = fileElem[0].value != null && fileElem[0].value != '';
-		// reset the value to allow selecting the same file again
-		fileElem[0].value = null;
-		// chrome fires change event on popup cancel so no need for special handling but for others
-		// we cannot detect the user clicking cancel on file select popup and it doesn't fire change event, 
-		// so we fire a null change event before the popup opens for these browsers so if the user 
-		// clicks cancel the previous file value will be removed and model will be notified. 
-		if (navigator.userAgent.indexOf("Chrome") === -1) {
-			// if this is manual click trigger we don't need to reset again 
-			if (!elem.attr('__afu_clone__')) {
-				if (isChanged) {
-					onChangeFn({target: {files: []}});
-				}
-				// fix for IE10 cannot set the value of the input to null programmatically by cloning and replacing input
-				if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
-					var clone = recompileElem();
-					clone.attr('__afu_clone__', true);
-					clone[0].click();
-					evt.preventDefault();
-					evt.stopPropagation();
-					return true;
-				}
-			} else {
-				elem.attr('__afu_clone__', null);
+		if (fileElem[0].value != null && fileElem[0].value != '') {
+			fileElem[0].value = null;
+			// IE 11 already fires change event when you set the value to null
+			if (navigator.userAgent.indexOf("Trident/7") === -1) {
+				onChangeFn({target: {files: []}});
 			}
+		}
+		// if this is manual click trigger we don't need to reset again 
+		if (!elem.attr('__afu_clone__')) {
+			// fix for IE10 cannot set the value of the input to null programmatically by cloning and replacing input
+			// IE 11 setting the value to null event will be fired after file change clearing the selected file so 
+			// we just recreate the element for IE 11 as well
+			if (navigator.appVersion.indexOf("MSIE 10") !== -1 || navigator.userAgent.indexOf("Trident/7") !== -1) {
+				var clone = recompileElem();
+				clone.attr('__afu_clone__', true);
+				clone[0].click();
+				evt.preventDefault();
+				evt.stopPropagation();
+				return true;
+			}
+		} else {
+			elem.attr('__afu_clone__', null);
 		}
 	}
 	
@@ -322,26 +319,22 @@ function handleFileSelect(scope, elem, attr, ngModel, $parse, $timeout, $compile
 				rejFiles.push(file);
 			}
 		}
-		if (ngModel) {
-			$timeout(function() {
-				if (scope[attr.ngModel]) scope[attr.ngModel].value = files
-				scope[attr.ngModel] = files;
+		$timeout(function() {
+			if (ngModel) {
+				$parse(attr.ngModel).assign(scope, files);
 				ngModel && ngModel.$setViewValue(files != null && files.length == 0 ? '' : files);
-				if (attr['ngModelRejected']) {
-					if (scope[attr.ngModelRejected]) scope[attr.ngModelRejected].value = rejFiles;
-					scope[attr.ngModelRejected] = rejFiles;
+				if (attr.ngModelRejected) {
+					$parse(attr.ngModelRejected).assign(scope, rejFiles);
 				}
-			});
-		}
-		if (attr.ngFileChange && attr.ngFileChange != "") {
-			$timeout(function() {
+			}
+			if (attr.ngFileChange && attr.ngFileChange != "") {
 				$parse(attr.ngFileChange)(scope, {
 					$files: files,
 					$rejectedFiles: rejFiles,
 					$event: evt
 				});
-			});
-		}
+			}
+		});
 	}
 }
 
@@ -394,8 +387,10 @@ function handleDrop(scope, elem, attr, ngModel, $parse, $timeout, $location) {
 		evt.preventDefault();
 		if (stopPropagation) evt.stopPropagation();
 		// handling dragover events from the Chrome download bar
-		var b = evt.dataTransfer.effectAllowed;
-		evt.dataTransfer.dropEffect = ('move' === b || 'linkMove' === b) ? 'move' : 'copy';
+		if (navigator.userAgent.indexOf("Chrome") > -1) {
+			var b = evt.dataTransfer.effectAllowed;
+			evt.dataTransfer.dropEffect = ('move' === b || 'linkMove' === b) ? 'move' : 'copy';
+		}
 		$timeout.cancel(leaveTimeout);
 		if (!scope.actualDragOverClass) {
 			actualDragOverClass = calculateDragOverClass(scope, attr, evt);
@@ -423,13 +418,13 @@ function handleDrop(scope, elem, attr, ngModel, $parse, $timeout, $location) {
 		extractFiles(evt, function(files, rejFiles) {
 			$timeout(function() {
 				if (ngModel) {
-					if (scope[attr.ngModel]) scope[attr.ngModel].value = files; 
-					scope[attr.ngModel] = files;
+					$parse(attr.ngModel).assign(scope, files);
 					ngModel && ngModel.$setViewValue(files != null && files.length == 0 ? '' : files);
 				}
 				if (attr['ngModelRejected']) {
-					if (scope[attr.ngModelRejected]) scope[attr.ngModelRejected].value = rejFiles;
-					scope[attr.ngModelRejected] = rejFiles;
+					if (scope[attr.ngModelRejected]) {
+						$parse(attr.ngModelRejected).assign(scope, rejFiles);
+					}
 				}
 			});
 			$timeout(function() {
@@ -480,12 +475,7 @@ function handleDrop(scope, elem, attr, ngModel, $parse, $timeout, $location) {
 						continue;
 					}
 					if (entry != null) {
-						//fix for chrome bug https://code.google.com/p/chromium/issues/detail?id=149735
-						if (isASCII(entry.name)) {
-							traverseFileTree(files, entry);
-						} else if (!items[i].webkitGetAsEntry().isDirectory) {
-							addFile(items[i].getAsFile());
-						}
+						traverseFileTree(files, entry);
 					}
 				} else {
 					var f = items[i].getAsFile();
@@ -574,10 +564,6 @@ function dropAvailable() {
     return ('draggable' in div) && ('ondrop' in div);
 }
 
-function isASCII(str) {
-	return /^[\000-\177]*$/.test(str);
-}
-
 function globStringToRegex(str) {
 	if (str.length > 2 && str[0] === '/' && str[str.length -1] === '/') {
 		return str.substring(1, str.length - 1);
@@ -585,15 +571,15 @@ function globStringToRegex(str) {
 	var split = str.split(','), result = '';
 	if (split.length > 1) {
 		for (var i = 0; i < split.length; i++) {
-			if (split[i].indexOf('.') == 0) {
-				split[i] = '*' + split[i];
-			}
 			result += '(' + globStringToRegex(split[i]) + ')';
 			if (i < split.length - 1) {
 				result += '|'
 			}
 		}
 	} else {
+		if (str.indexOf('.') == 0) {
+			str= '*' + str;
+		}
 		result = '^' + str.replace(new RegExp('[.\\\\+*?\\[\\^\\]$(){}=!<>|:\\' + '-]', 'g'), '\\$&') + '$';
 		result = result.replace(/\\\*/g, '.*').replace(/\\\?/g, '.');
 	}
@@ -602,7 +588,7 @@ function globStringToRegex(str) {
 
 var ngFileUpload = angular.module('ngFileUpload', []);
 
-for (key in angularFileUpload) {
+for (var key in angularFileUpload) {
 	ngFileUpload[key] = angularFileUpload[key];
 }
 
@@ -612,7 +598,7 @@ for (key in angularFileUpload) {
  * AngularJS file upload/drop directive and service with progress and abort
  * FileAPI Flash shim for old browsers not supporting FormData 
  * @author  Danial  <danial.farid@gmail.com>
- * @version 3.0.2
+ * @version 3.0.7
  */
 
 (function() {
@@ -652,6 +638,7 @@ if ((window.XMLHttpRequest && !window.FormData) || (window.FileAPI && FileAPI.fo
 				orig.apply(this, [m, url, b]);
 			} catch (e) {
 				if (e.message.indexOf('Access is denied') > -1) {
+					this.__origError = e;
 					orig.apply(this, [m, '_fix_for_ie_crossdomain__', b]);
 				}
 			}
@@ -764,6 +751,9 @@ if ((window.XMLHttpRequest && !window.FormData) || (window.FileAPI && FileAPI.fo
 					xhr.__fileApiXHR = FileAPI.upload(config);
 				}, 1);
 			} else {
+				if (this.__origError) {
+					throw this.__origError;
+				}
 				orig.apply(xhr, arguments);
 			}
 		}
