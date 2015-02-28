@@ -2,7 +2,12 @@ body *
 {
   margin: 0px;
   padding: 0px;
-  outline: solid 1px red;
+}
+
+body
+{
+  margin: 0px;
+  background-color: rgb(237,237,237);
 }
 
 /* Generic Classes */
@@ -39,8 +44,10 @@ body *
 /* Navbar */
 nav
 {
-	width: 100%;
- height: 100%;
+ margin-left: auto;
+ margin-right: auto;
+ width: 80%;
+ height: 50px;
  background-color: black;
  color: white;
 }
@@ -65,7 +72,7 @@ nav ul li
 
 nav li.nav-ml
 {
-	border-top: solid 2px gold;
+	border-top: solid 5px gold;
 }
 
 nav li.nav-ml:hover
@@ -75,7 +82,7 @@ nav li.nav-ml:hover
 
 nav li.nav-di
 {
-	border-top: solid 2px blue;
+	border-top: solid 5px blue;
 }
 
 nav li.nav-di:hover
@@ -85,7 +92,7 @@ nav li.nav-di:hover
 
 nav li.nav-nae
 {
-	border-top: solid 2px green;
+	border-top: solid 5px green;
 }
 
 nav li.nav-nae:hover
@@ -95,7 +102,7 @@ nav li.nav-nae:hover
 
 nav li.nav-ta
 {
-	border-top: solid 2px red;
+	border-top: solid 5px red;
 }
 
 nav li.nav-ta:hover
@@ -105,7 +112,7 @@ nav li.nav-ta:hover
 
 nav li.nav-emt
 {
-	border-top: solid 2px grey;
+	border-top: solid 5px grey;
 }
 
 nav li.nav-emt:hover
@@ -115,7 +122,7 @@ nav li.nav-emt:hover
 
 nav li.nav-combine
 {
-	border-top: solid 2px orange;
+	border-top: solid 5px orange;
 }
 
 nav li.nav-combine:hover
@@ -129,13 +136,15 @@ div#container
   margin-left: auto;
   margin-right: auto;
   min-width: 800px;
+  border-left: solid 1px silver;
+  border-right: solid 1px silver;
 }
 
 header
 {
   width: 100%;
-  height: 50px;
-
+  height: 55px;
+  background-color: black;
 }
 
 div#news
@@ -149,17 +158,18 @@ section#left
 {
   width: 65%;
   float: left;
-  border-bottom: solid 1px grey;
-  padding-bottom: 5px;
+  border-right: solid 1px silver;
+  padding-bottom: 5px;  
 }
 
 div.major-news
 {
-  width: 45%;
+  width: 44%;
   margin :2.5%;
-  height: 120px;
+  padding: 0.5%;
   float: left;
-  outline: solid 1px black;
+  background-color: white;
+
 }
 
 div.major-news-header
@@ -168,18 +178,20 @@ div.major-news-header
   height: 20px;
   margin: 0px;
   color: white;
-  padding-left: 5px;
 }
 
 img.major-news-img
 {
   width: 100%;
-  max-height: 100px;
 }
 
 div.major-news p
 {
+  border-top: solid 1px silver;
+  border-bottom: solid 1px silver;
   overflow-y: auto;
+  font-size: 15px;
+  height: 30px;
 }
 
 div.minor-news
@@ -197,12 +209,11 @@ section#right
 
 article.left
 {
-  margin-top: 20px;
   width: 100%;
-  height: 300px;
 }
 
 article.left h1
 {
-  text-align: center;
+  padding-left: 10px;
+  text-align: left;
 }

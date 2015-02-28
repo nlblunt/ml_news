@@ -22,4 +22,4 @@
 //= require services/services
 //= require controllers/controllers
 //= require_tree .
-//= require bootstrap-sprockets
+
