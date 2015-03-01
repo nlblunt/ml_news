@@ -7,7 +7,10 @@ body *
 body
 {
   margin: 0px;
-  background-color: rgb(237,237,237);
+  /*background-color: rgb(237,237,237);
+  //background-color: rgb(30,30,30);*/
+  background-image: image_url("background.old.jpg");
+  background-size: cover;
 }
 
 /* Generic Classes */
@@ -168,7 +171,7 @@ div.major-news
   margin :2.5%;
   padding: 0.5%;
   float: left;
-  background-color: white;
+  //background-color: white;
 
 }
 
@@ -185,20 +188,26 @@ img.major-news-img
   width: 100%;
 }
 
-div.major-news p
+div.major-news p, div.minor-news p
 {
   border-top: solid 1px silver;
   border-bottom: solid 1px silver;
   overflow-y: auto;
   font-size: 15px;
-  height: 30px;
+  height: 36px;
 }
 
 div.minor-news
 {
-  width: 20%;
-  padding: 2.5%;
+  width: 19%;
+  margin: 2.5%;
+  padding: 0.5%;
   float: left;
+}
+
+img.minor-news-img
+{
+  width: 100%;
 }
 
 section#right
@@ -216,4 +225,5 @@ article.left h1
 {
   padding-left: 10px;
   text-align: left;
+  color: silver;
 }
