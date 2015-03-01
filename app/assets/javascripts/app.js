@@ -5,6 +5,7 @@
           'templates',
           'ngRoute',
           'ngResource',
+          'ui.bootstrap',
           'appControllers',
           'appServices',
         ]);

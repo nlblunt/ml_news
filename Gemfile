@@ -52,7 +52,7 @@ end
 
 gem 'bower-rails'
 
-# gem 'bootstrap-sass'
+gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'angular-rails-templates'
 

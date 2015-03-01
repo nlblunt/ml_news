@@ -8,6 +8,6 @@
     "angular-mocks": "latest",
     "ng-file-upload": "latest",
     "angulartics": "latest",
-    "angular-ui": "latest"
+    "angular-bootstrap": "latest"
   }
 }
