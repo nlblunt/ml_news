@@ -1,0 +1,2 @@
+module ArticleTemplateControllerHelper
+end
