@@ -8,6 +8,8 @@
     "angular-mocks": "latest",
     "ng-file-upload": "latest",
     "angulartics": "latest",
-    "angular-bootstrap": "latest"
+    "angular-bootstrap-tpls": "latest"
+  },
+  "resolutions": {
   }
 }

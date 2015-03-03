@@ -18,6 +18,7 @@
 //= require angular-route/angular-route
 //= require angular-rails-templates
 //= require angular-resource/angular-resource
+//= require angular-bootstrap/ui-bootstrap-tpls
 //= require directives/directives
 //= require services/services
 //= require controllers/controllers
