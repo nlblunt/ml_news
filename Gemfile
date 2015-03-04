@@ -33,7 +33,7 @@ group :production do
 end
 
 group :test, :development do
-        gem 'sqlite3'
+    gem 'sqlite3'
 	gem 'rspec-rails'
 	gem 'factory_girl_rails', :require => false
 	gem 'capybara'
@@ -42,7 +42,7 @@ group :test, :development do
 	gem 'teaspoon'
 	gem 'phantomjs'
 	gem 'faker'
-
+  	gem 'guard-rspec' 
   	# Call 'debugger' anywhere in the code to stop execution and get a debugger console
   	gem 'byebug'
 
