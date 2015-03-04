@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20150303182647) do
   create_table "articles", force: :cascade do |t|
     t.string   "name"
     t.text     "body"
+    t.string   "category"
+    t.boolean  "major"
     t.string   "display_img_file_name"
     t.string   "display_img_content_type"
     t.integer  "display_img_file_size"

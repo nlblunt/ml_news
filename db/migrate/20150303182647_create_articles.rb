@@ -3,6 +3,8 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.string :name
       t.text :body
+      t.string :category
+      t.boolean :major
       t.attachment :display_img
       t.attachment :news_img
       t.references :author, index: true
