@@ -1,4 +1,4 @@
 class Article < ActiveRecord::Base
-  belongs_to :article_template
+  has_one :article_template
   belongs_to :author
 end
