@@ -1,3 +1,4 @@
 class ArticleTemplate < ActiveRecord::Base
-	belongs_to_many :articles
+	has_many :articles
+	has_many :authors, :through => :articles
 end
