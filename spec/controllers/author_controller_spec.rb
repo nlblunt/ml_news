@@ -41,7 +41,7 @@ RSpec.describe AuthorController, type: :controller do
 			author = FactoryGirl.create(:author)
 			expect(Author.count).to eq(1)
 			
-			delete :destroy, author:{id: author.id}
+			delete :destroy, {id: author.id}
 			
 			expect(Author.count).to eq(0)
 		end
