@@ -4,13 +4,19 @@ body *
   padding: 0px;
 }
 
-body
+body#home
 {
   margin: 0px;
   /*background-color: rgb(237,237,237);
   //background-color: rgb(30,30,30);*/
   background-image: image_url("background.old.jpg");
   background-size: cover;
+}
+
+body#admin
+{
+  margin: 0px;
+  background-image: none;
 }
 
 /* Generic Classes */
@@ -45,7 +51,7 @@ body
 }
 
 /* Navbar */
-nav
+nav#main
 {
  margin-left: auto;
  margin-right: auto;
@@ -55,7 +61,7 @@ nav
  color: white;
 }
 
-nav ul
+nav#main ul
 {	
 	width: 100%;
  height: 100%;
@@ -63,7 +69,7 @@ nav ul
  background-color: black;
 }
 
-nav ul li
+nav#main ul li
 {
 	display: block;
 	float: left;
@@ -73,62 +79,62 @@ nav ul li
  text-align: center;
 }
 
-nav li.nav-ml
+nav#main li.nav-ml
 {
 	border-top: solid 5px gold;
 }
 
-nav li.nav-ml:hover
+nav#main li.nav-ml:hover
 {
 	background-color: gold;
 }
 
-nav li.nav-di
+nav#main li.nav-di
 {
 	border-top: solid 5px blue;
 }
 
-nav li.nav-di:hover
+nav#main li.nav-di:hover
 {
 	background-color: blue;
 }
 
-nav li.nav-nae
+nav#main li.nav-nae
 {
 	border-top: solid 5px green;
 }
 
-nav li.nav-nae:hover
+nav#main li.nav-nae:hover
 {
 	background-color: green;
 }
 
-nav li.nav-ta
+nav#main li.nav-ta
 {
 	border-top: solid 5px red;
 }
 
-nav li.nav-ta:hover
+nav#main li.nav-ta:hover
 {
 	background-color: red;
 }
 
-nav li.nav-emt
+nav#main li.nav-emt
 {
 	border-top: solid 5px grey;
 }
 
-nav li.nav-emt:hover
+nav#main li.nav-emt:hover
 {
 	background-color: grey;
 }
 
-nav li.nav-combine
+nav#main li.nav-combine
 {
 	border-top: solid 5px orange;
 }
 
-nav li.nav-combine:hover
+nav#main li.nav-combine:hover
 {
 	background-color: orange;
 }
@@ -141,6 +147,7 @@ div#container
   min-width: 800px;
   border-left: solid 1px silver;
   border-right: solid 1px silver;
+
 }
 
 header
@@ -226,4 +233,65 @@ article.left h1
   padding-left: 10px;
   text-align: left;
   color: silver;
+}
+
+/* ADMIN SECTION */
+div#admin-container
+{
+
+}
+
+div#admin-container header
+{
+  width: 100%;
+  height: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  color: blue;
+  background-color: white;
+  border-bottom: solid 3px black;
+}
+
+nav#admin-top-nav
+{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#admin-container ul
+{
+  list-style: none;
+}
+
+div#admin-container nav li
+{
+  width: 33.3%;
+  float: left;
+  text-align: center;
+}
+
+div#admin-nav
+{
+  width: 20%;
+  float: left;
+}
+
+#admin-nav nav
+{
+  width: 100%;
+
+}
+
+#admin-nav li
+{
+  width: 100%;
+  float: left;
+}
+
+div#admin-content
+{
+  width: 80%;
+  float: right;
+  border-left: solid 1px silver;
 }

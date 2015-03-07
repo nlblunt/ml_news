@@ -1,0 +1,42 @@
+<head>
+	<title>Mindabaal Leage News Admin</title>
+</head>
+
+<div id="admin-container" ng-controller="adminController as adminCtrl">
+	<header id="admin-header">
+		<nav id="admin-top-nav">
+			<ul>
+				<li ng-click="adminCtrl.navSetSelected('authors')">Authors</li>
+				<li ng-click="adminCtrl.navSetSelected('articles')">Articles</li>
+				<li ng-click="adminCtrl.navSetSelected('templates')">Article Templates</li>
+			</ul>
+		</nav>
+	</header>
+	<div id="admin-nav">
+		<div ng-show="adminCtrl.navIsSelected('authors')">
+		Authors
+		</div>
+
+		<div ng-show="adminCtrl.navIsSelected('articles')">
+		Articles
+		</div>
+
+		<div ng-show="adminCtrl.navIsSelected('templates')">
+		Templates
+		</div>
+	</div>
+
+	<div id="admin-content">
+		<div ng-show="adminCtrl.navIsSelected('authors')">
+		Authors
+		</div>
+
+		<div ng-show="adminCtrl.navIsSelected('articles')">
+		Articles
+		</div>
+
+		<div ng-show="adminCtrl.navIsSelected('templates')">
+		Templates
+		</div>
+	</div>
+</div>

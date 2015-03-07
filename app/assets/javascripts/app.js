@@ -12,17 +12,23 @@
           
      mlnews.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
           {
-          	$locationProvider.html5Mode(true);
-          
+          	//$locationProvider.html5Mode(true);
+          $locationProvider.hashPrefix('!');
+
           $routeProvider
           .when('/',
           {
-          templateUrl: "html/index.html",
-          controller: "homeController"
+               templateUrl: "html/index.html",
+               controller: "homeController"
+          })
+          .when('/admin',
+          {
+               templateUrl: "html/admin.html",
+               controller: "adminController"
           })
           .otherwise(
           {
-          redirectTo: '/'
+               redirectTo: '/'
           });
-          }]);
+     }]);
  })();

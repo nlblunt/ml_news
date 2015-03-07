@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe AuthorController, type: :controller do
+	before(:each) do
+		Author.destroy_all
+	end
+	
 	describe "POST 'create'" do
 		describe "With valid params" do
 			it "Creates a new Author" do
@@ -18,6 +22,17 @@ RSpec.describe AuthorController, type: :controller do
 				expect(Author.count).to eq(0)
 				expect(response.status).to eq(500)
 			end
+		end
+	end
+
+	describe "GET 'index'" do
+		it "Returns a list of Authors" do
+			FactoryGirl.create(:author)
+			FactoryGirl.create(:author)
+
+			post :index
+
+			expect(assigns(:authors).count).to eq(2)
 		end
 	end
 end

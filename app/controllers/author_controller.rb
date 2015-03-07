@@ -1,4 +1,10 @@
 class AuthorController < ApplicationController
+	def index
+		@authors = Author.all
+
+		render json: @authors
+	end
+
 	def create
 		author_params = JSON.parse(params[:author])
 

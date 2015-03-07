@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe ArticleTemplateController, type: :controller do
+	before(:each) do
+		ArticleTemplate.destroy_all
+	end
+	
 	describe "POST 'create'" do
 		describe "With valid params" do
 			it "Creates a new Article Template" do
