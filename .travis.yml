@@ -4,6 +4,3 @@ rvm:
   
 before_install:
   - gem install selenium-webdriver
-  
-script:
-  - bundle exec rake db:test:prepare
