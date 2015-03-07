@@ -22,6 +22,8 @@ class AuthorController < ApplicationController
 	def destroy
 		author = Author.find(params[:id])
 		author.delete
+
+  render :nothing => true, :status => :ok
 	end
 	
 	private
