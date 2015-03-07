@@ -8,7 +8,7 @@ RSpec.describe AuthorController, type: :controller do
 	describe "POST 'create'" do
 		describe "With valid params" do
 			it "Creates a new Author" do
-				post :create, author:{name: "Name"}.to_json
+				post :create, author:{name: "Name"}#.to_json
 
 				expect(Author.count).to eq(1)
 				expect(response.status).to eq(201)
@@ -17,7 +17,7 @@ RSpec.describe AuthorController, type: :controller do
 
 		describe "With invalid params" do
 			it "Does not create a new Author" do
-				post :create, author:{name: nil}.to_json
+				post :create, author:{name: nil}#.to_json
 
 				expect(Author.count).to eq(0)
 				expect(response.status).to eq(500)
@@ -33,6 +33,17 @@ RSpec.describe AuthorController, type: :controller do
 			post :index
 
 			expect(assigns(:authors).count).to eq(2)
+		end
+	end
+	
+	describe "POST 'delete'" do
+		it "Deletes the Artist" do
+			author = FactoryGirl.create(:author)
+			expect(Author.count).to eq(1)
+			
+			delete :destroy, author:{id: author.id}
+			
+			expect(Author.count).to eq(0)
 		end
 	end
 end
