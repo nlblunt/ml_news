@@ -2,7 +2,8 @@ var appControllers = angular.module('appControllers', ['appServices']);
 
 appControllers.controller('homeController', ['$scope', function($scope)
 {
-    	$scope.$root.body_id = "home";
+	//Set <body id>
+    $scope.$root.body_id = "home";
 }]);
 
 appControllers.controller('adminController', ['$scope', 'authorFactory', function($scope, authorFactory)
@@ -36,6 +37,7 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', functio
 		{
 			$scope.authors = authorFactory.getAuthors();
 		});
+		this.content = "";
 	};
 	
 	this.navIsSelected = function(selected)
@@ -70,5 +72,13 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', functio
 		this.content = selected;
 		//Load the content section with the clicked on author
 		$scope.selected_author = author;
+	};
+	
+	this.contentSetTemplate = function(selected, template)
+	{
+		//Set the content section for template
+		this.content = selected;
+		//Load the content section with the clicked on template
+		$scope.selected_template = template;
 	};
 }]);

@@ -29,7 +29,12 @@
 
 
 		<div ng-show="adminCtrl.navIsSelected('templates')">
-		
+			<ul>
+				<li><a ng-click="adminCtrl.contentSetSelected('new-template')">Add New Template</a></li>
+				<li ng-repeat="template in templates">
+					<a ng-click="adminCtrl.contentSetTemplate('show-template', template)">{{template.name}}</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 
@@ -53,9 +58,21 @@
 		<div ng-show="adminCtrl.contentIsSelected('articles')">
 		Articles
 		</div>
-
-		<div ng-show="adminCtrl.contentIsSelected('templates')">
-		Templates
+		
+		<div ng-show="adminCtrl.contentIsSelected('new-template')">
+			<h1>Add New Template</h1>
+			<form>
+				<div class="form-group">
+					<input class="form-control" type="text" name="name" ng-model="new_template.name" placeholder="Template Name"/>
+					<textarea rows="10" class="form-control" name="html" ng-model="new_template.html" placeholder="HTML"></textarea>
+					<button type="submit" class="btn btn-default" ng-click="adminCtrl.addTemplate()">Add {{new_template.name}}</button>
+				</div>
+			</form>
+		</div>
+		
+		<div ng-show="adminCtrl.contentIsSelected('show-template')">
+			<h1>{{selected_template.name</h1>
+			{{selected_template.html}}
 		</div>
 	</div>
 </div>

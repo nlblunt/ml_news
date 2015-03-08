@@ -30,7 +30,7 @@ appServices.factory('authorFactory', ['$resource', '$q', function($resource, $q)
         newAuthor.$save()
         .then(function()
         {
-            //deferred.resolve(Author.query());
+            deferred.resolve();
         });
         
         return deferred.promise;
