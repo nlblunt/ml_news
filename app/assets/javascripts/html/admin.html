@@ -71,8 +71,9 @@
 		</div>
 		
 		<div ng-show="adminCtrl.contentIsSelected('show-template')">
-			<h1>{{selected_template.name</h1>
-			{{selected_template.html}}
+			<h1>{{selected_template.name}}</h1>
+			<pre>	{{selected_template.html}}</pre>
+			<button type="submit" class="btn btn-danger" ng-click="adminCtrl.deleteTemplate(selected_template.id)">Delete {{selected_template.name}}</button>
 		</div>
 	</div>
 </div>

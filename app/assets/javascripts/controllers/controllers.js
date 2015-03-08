@@ -6,7 +6,7 @@ appControllers.controller('homeController', ['$scope', function($scope)
     $scope.$root.body_id = "home";
 }]);
 
-appControllers.controller('adminController', ['$scope', 'authorFactory', function($scope, authorFactory)
+appControllers.controller('adminController', ['$scope', 'authorFactory', 'articleTemplateFactory', function($scope, authorFactory, articleTemplateFactory)
 {
 	//Set <body id>
 	$scope.$root.body_id = "admin";
@@ -17,7 +17,8 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', functio
 	
 	//Get the list of authors
 	$scope.authors = authorFactory.getAuthors();
-
+	$scope.templates = articleTemplateFactory.getTemplates();
+	
 	this.addAuthor = function(author)
 	{
 		//Add new author then get a new updated list
@@ -36,6 +37,29 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', functio
 		.then(function()
 		{
 			$scope.authors = authorFactory.getAuthors();
+		});
+		this.content = "";
+	};
+	
+	this.addTemplate = function(template)
+	{
+		//Add a new template
+		articleTemplateFactory.addTemplate($scope.new_template)
+		.then(function()
+		{
+			$scope.templates = articleTemplateFactory.getTemplates();
+			$scope.new_template = "";
+		});
+	};
+
+		
+	this.deleteTemplate = function(id)
+	{
+		//Delete the template
+		articleTemplateFactory.deleteTemplate(id)
+		.then(function()
+		{
+			$scope.templates = articleTemplateFactory.getTemplates();
 		});
 		this.content = "";
 	};

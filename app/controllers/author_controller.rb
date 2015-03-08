@@ -23,7 +23,7 @@ class AuthorController < ApplicationController
 		author = Author.find(params[:id])
 		author.delete
 
-  render :nothing => true, :status => :ok
+  		render :nothing => true, :status => :ok
 	end
 	
 	private
