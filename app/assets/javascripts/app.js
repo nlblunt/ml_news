@@ -26,6 +26,11 @@
                templateUrl: "html/admin.html",
                controller: "adminController"
           })
+          .when('/author',
+          {
+               templateUrl: "html/author.html",
+               controller: "authorController"
+          })
           .otherwise(
           {
                redirectTo: '/'

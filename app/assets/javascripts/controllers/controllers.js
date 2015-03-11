@@ -106,3 +106,28 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', 'articl
 		$scope.selected_template = template;
 	};
 }]);
+
+appControllers.controller('authorController', ['$scope', 'authorFactory', 'articleTemplateFactory', function($scope, authorFactory, articleTemplateFactory)
+{
+	//Set <body id>
+	$scope.$root.body_id = "author";
+	
+	this.signed_in = false;
+	
+	authorFactory.author_check().$promise
+	.then(function(result)
+	{
+		$scope.session = result;
+	});
+	
+	$scope.author_sign_in = function()
+	{
+		authorFactory.authorLogin($scope.sign_in)
+		.then(function(result)
+		{
+			//Set the session id
+			this.signed_in = true;
+			$scope.session = result;
+		});
+	};
+}]);

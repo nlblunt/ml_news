@@ -1,0 +1,20 @@
+<head>
+    <title>Author: {{}} Dashboard</title>
+</head>
+
+<div id="author-container" ng-controller="authorController as authorCtrl">
+    <div id="author_signin" ng-hide="authorCtrl.signed_in">
+        <h2>Please Sign In</h2>
+        <form>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="text" name="email" ng-model="sign_in.email" placeholder="Email"/>
+            </div>
+            <div class="from-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" ng-model="password" placeholder="Password"/>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="authorCtrl.author_sign_in()">Sign In</button>
+        </form>
+    </div>
+</div>

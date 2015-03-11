@@ -25,6 +25,20 @@ class AuthorController < ApplicationController
   		render :nothing => true, :status => :ok
 	end
 	
+	def author_check
+    	if(user_signed_in?)
+    		@user = current_user
+    		#render :author_check
+    		render status: :ok
+    	else
+        	#create a blank admin
+        	@user = User.new
+        	@user.id = 0
+        	#render :author_check
+        	render status: :forbidden
+    	end
+    end
+  
 	private
 	def user_params
 		params.require(:user).permit(:email, :password, :password_confirmation)
