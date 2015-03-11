@@ -2,15 +2,14 @@ class AuthorController < ApplicationController
 	def index
 		@authors = Author.all
 
-		render json: @authors
+		#render json: @authors
+		render :index
 	end
 
 	def create
 		#author_params = JSON.parse(params[:author])
-
-		#author = Author.create(author_params)
-
-		author = Author.create(author_params)
+		user = User.create(user_params)
+		author = user.create_author(author_params)
 		
 		if author.valid?
 			render :nothing => true, :status => :created
@@ -27,6 +26,10 @@ class AuthorController < ApplicationController
 	end
 	
 	private
+	def user_params
+		params.require(:user).permit(:email, :password, :password_confirmation)
+	end
+	
 	def author_params
 		params.require(:author).permit(:name)
 	end

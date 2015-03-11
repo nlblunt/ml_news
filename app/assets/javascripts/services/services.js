@@ -1,6 +1,6 @@
 var appServices = angular.module('appServices', ['ngResource', 'angularFileUpload']);
 
-appServices.factory('authorFactory', ['$resource', '$q', function($resource, $q)
+appServices.factory('authorFactory', ['$resource', '$q', '$http', function($resource, $q, $http)
 {
     var self = {};
     
@@ -17,21 +17,29 @@ appServices.factory('authorFactory', ['$resource', '$q', function($resource, $q)
     {
         //Adds a new author
         
-        //Setup a defer
         var deferred = $q.defer();
-        
-        //Create the new author object
-        var newAuthor = new Author();
-        
-        //Set author attributes
-        newAuthor.name = author.name;
-        
-        //Save author to database
-        newAuthor.$save()
+                
+        $http.post('/author', {user:{email: author.email, password: "password", password_confirmation: "password"},author:{name: author.name}})
         .then(function()
         {
             deferred.resolve();
         });
+        
+        //Setup a defer
+
+        
+        //Create the new author object
+        //var newAuthor = new Author();
+        
+        //Set author attributes
+        //newAuthor.name = author.name;
+        
+        //Save author to database
+        //newAuthor.$save()
+        //.then(function()
+        //{
+        //    deferred.resolve();
+        //});
         
         return deferred.promise;
     };

@@ -8,16 +8,21 @@ RSpec.describe AuthorController, type: :controller do
 	describe "POST 'create'" do
 		describe "With valid params" do
 			it "Creates a new Author" do
-				post :create, author:{name: "Name"}#.to_json
-
+				#post :create, user:{email: "test@test.com", password: "pass"}, author:{name: "Name"}
+				post :create, {user:{email: "test@test.com", password: "password", password_confirmation: "password"}, author:{name: "Name"}}
+				expect(User.count).to eq(1)
 				expect(Author.count).to eq(1)
-				expect(response.status).to eq(201)
+
+				#post :create, author:{name: "Name"}#.to_json
+
+				#expect(Author.count).to eq(1)
+				#expect(response.status).to eq(201)
 			end
 		end
 
 		describe "With invalid params" do
 			it "Does not create a new Author" do
-				post :create, author:{name: nil}#.to_json
+				post :create, {user:{email: "test@test.com", password: "password", password_confirmation: "password"}, author:{name: nil}}#.to_json
 
 				expect(Author.count).to eq(0)
 				expect(response.status).to eq(500)
