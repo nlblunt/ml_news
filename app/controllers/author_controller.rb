@@ -25,17 +25,17 @@ class AuthorController < ApplicationController
   		render :nothing => true, :status => :ok
 	end
 	
-	def author_check
+	def user_check
     	if(user_signed_in?)
     		@user = current_user
     		#render :author_check
-    		render status: :ok
+    		render status: :ok, json: current_user.author
     	else
         	#create a blank admin
         	@user = User.new
         	@user.id = 0
         	#render :author_check
-        	render status: :forbidden
+        	render nothing: true, status: :forbidden
     	end
     end
   

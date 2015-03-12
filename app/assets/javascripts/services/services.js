@@ -8,10 +8,10 @@ appServices.factory('authorFactory', ['$resource', '$q', '$http', function($reso
     var Author = $resource('/author/:id',{id:'@id'});
     
     //Author (User) seesion object
-    var UserSession = $resource('/user/sign_in',
+    var UserSession = $resource('/users/sign_in', {id: '@id'},
     {
             //Customer API to check admin session.
-            user_check: {method:'GET', url:'/user/user_check'}
+            userCheck: {method:'GET', url:'/users/user_check'}
     });
     
     self.getAuthors = function()
@@ -66,14 +66,15 @@ appServices.factory('authorFactory', ['$resource', '$q', '$http', function($reso
         return deferred.promise;
     };
     
-    self.author_check = function()
+    self.authorCheck = function()
     {
         //Check with the server if user is logged in.  Returns session ID.
-        return UserSession.user_check();
+        return UserSession.userCheck();
     };
     
     self.authorLogin = function(login)
         {
+
             //Setup a deferred promise
             var deferred = $q.defer();
 
@@ -83,9 +84,9 @@ appServices.factory('authorFactory', ['$resource', '$q', '$http', function($reso
             //Attempt to save the new session.  If success, return session id.
             user.$save()
             .then(
-            function()
+            function(author)
             {
-                deferred.resolve(UserSession.user_check());
+                deferred.resolve(author);
             },
             function()
             {
@@ -96,6 +97,15 @@ appServices.factory('authorFactory', ['$resource', '$q', '$http', function($reso
             return deferred.promise;
         };
     
+    self.authorLogOut = function(authorId)
+    {
+        var author = $resource('/users/sign_out');
+
+        author.delete({id: authorId});
+
+        return self;
+    };
+
     return self;
 }]);
 

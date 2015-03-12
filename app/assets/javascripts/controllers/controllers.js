@@ -112,12 +112,21 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 	//Set <body id>
 	$scope.$root.body_id = "author";
 	
-	this.signed_in = false;
+	$scope.signed_in = false;
+	$scope.add_news_section = false;
 	
-	authorFactory.author_check().$promise
+	$scope.templates = [{name: "Left", id: 1}, {name: "Right", id: 2}];
+
+	authorFactory.authorCheck().$promise
 	.then(function(result)
 	{
-		$scope.session = result;
+		//$scope.session = result;
+		$scope.author = result;
+		$scope.signed_in = true;
+	},
+	function()
+	{
+		$scope.signed_in = false;
 	});
 	
 	$scope.author_sign_in = function()
@@ -125,9 +134,27 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 		authorFactory.authorLogin($scope.sign_in)
 		.then(function(result)
 		{
+			$scope.author = result;
 			//Set the session id
-			this.signed_in = true;
-			$scope.session = result;
+			$scope.signed_in = true;
 		});
+	};
+
+	$scope.author_sign_out = function()
+	{
+		authorFactory.authorLogOut($scope.author.user_id);
+
+		$scope.author = "";
+		$scope.signed_in = false;
+	}
+
+	$scope.add_news = function()
+	{
+		$scope.add_news_section = true;
+	};
+
+	$scope.hide_news = function()
+	{
+		$scope.add_news_section = false;
 	};
 }]);
