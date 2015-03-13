@@ -7,5 +7,5 @@ class Article < ActiveRecord::Base
 
   validates_attachment_content_type :display_img, :news_img, :content_type => /\Aimage\/.*\Z/
   
-  validates :name, :author, :article_template_id, :category, presence: true
+  validates :title, :author, :article_template_id, :category, presence: true
 end
