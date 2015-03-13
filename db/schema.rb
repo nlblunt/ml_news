@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20150308054355) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.text     "body"
     t.string   "category"
     t.boolean  "major"
