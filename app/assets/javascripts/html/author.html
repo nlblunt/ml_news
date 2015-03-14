@@ -26,8 +26,8 @@
             <div id="new-news">
                 <form>
                     <div class="form-group">
-                        <label>Select Faction</label>
-                        <select ng-model="new_article.faction" ng-model="new_article.faction" name="faction" class="form-control">
+                        <label>Select Category</label>
+                        <select ng-model="new_article.category" name="category" class="form-control">
                             <option selected="selected" value="ml">Mindabaal</option>
                             <option value="di">Drax</option>
                             <option value="nae">Nakesh</option>
@@ -46,6 +46,12 @@
                         <label>Article</label>
                         <textarea rows="8" class="form-control" type="text" name="body" ng-model="new_article.body" placeholder="Article Body"></textarea>
                     </div>
+                    
+                    <div class="form-group">
+                        <label>Display Image</label>
+                        <input type="file" ng-file-select ng-model="new_article.display" class="form-control" />
+                    </div>
+                    <button class="btn btn-default" ng-click="save_article()">Save Article</button>
                 </form>
                 <a href ng-click="hide_news()">Cancel News</a>
             </div>

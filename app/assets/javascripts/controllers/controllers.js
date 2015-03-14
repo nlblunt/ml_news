@@ -6,7 +6,7 @@ appControllers.controller('homeController', ['$scope', function($scope)
     $scope.$root.body_id = "home";
 }]);
 
-appControllers.controller('adminController', ['$scope', 'authorFactory', 'articleTemplateFactory', function($scope, authorFactory, articleTemplateFactory)
+appControllers.controller('adminController', ['$scope', 'authorFactory', function($scope, authorFactory)
 {
 	//Set <body id>
 	$scope.$root.body_id = "admin";
@@ -17,7 +17,6 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', 'articl
 	
 	//Get the list of authors
 	$scope.authors = authorFactory.getAuthors();
-	$scope.templates = articleTemplateFactory.getTemplates();
 	
 	this.addAuthor = function(author)
 	{
@@ -41,28 +40,6 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', 'articl
 		this.content = "";
 	};
 	
-	this.addTemplate = function(template)
-	{
-		//Add a new template
-		articleTemplateFactory.addTemplate($scope.new_template)
-		.then(function()
-		{
-			$scope.templates = articleTemplateFactory.getTemplates();
-			$scope.new_template = "";
-		});
-	};
-
-		
-	this.deleteTemplate = function(id)
-	{
-		//Delete the template
-		articleTemplateFactory.deleteTemplate(id)
-		.then(function()
-		{
-			$scope.templates = articleTemplateFactory.getTemplates();
-		});
-		this.content = "";
-	};
 	
 	this.navIsSelected = function(selected)
 	{
@@ -97,17 +74,9 @@ appControllers.controller('adminController', ['$scope', 'authorFactory', 'articl
 		//Load the content section with the clicked on author
 		$scope.selected_author = author;
 	};
-	
-	this.contentSetTemplate = function(selected, template)
-	{
-		//Set the content section for template
-		this.content = selected;
-		//Load the content section with the clicked on template
-		$scope.selected_template = template;
-	};
 }]);
 
-appControllers.controller('authorController', ['$scope', 'authorFactory', 'articleTemplateFactory', function($scope, authorFactory, articleTemplateFactory)
+appControllers.controller('authorController', ['$scope', 'authorFactory', 'articleFactory', function($scope, authorFactory, articleFactory)
 {
 	//Set <body id>
 	$scope.$root.body_id = "author";
@@ -115,7 +84,6 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 	$scope.signed_in = false;
 	$scope.add_news_section = false;
 	
-	$scope.templates = [{name: "Left", id: 1}, {name: "Right", id: 2}];
 
 	authorFactory.authorCheck().$promise
 	.then(function(result)
@@ -156,5 +124,11 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 	$scope.hide_news = function()
 	{
 		$scope.add_news_section = false;
+	};
+	
+	$scope.save_article = function()
+	{
+		console.log($scope.new_article);
+		articleFactory.addArticle($scope.new_article);
 	};
 }]);

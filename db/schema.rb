@@ -34,12 +34,10 @@ ActiveRecord::Schema.define(version: 20150308054355) do
     t.integer  "news_img_file_size"
     t.datetime "news_img_updated_at"
     t.integer  "author_id"
-    t.integer  "article_template_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
 
-  add_index "articles", ["article_template_id"], name: "index_articles_on_article_template_id"
   add_index "articles", ["author_id"], name: "index_articles_on_author_id"
 
   create_table "authors", force: :cascade do |t|

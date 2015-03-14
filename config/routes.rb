@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'users/user_check' => 'author#user_check'
   resources :author
   resources :article
-  resources :article_template
+  # resources :article_template
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 

@@ -1,5 +1,4 @@
 class Article < ActiveRecord::Base
-  belongs_to :article_template
   belongs_to :author
 
   has_attached_file :display_img, :styles => {:major => "800x450", :minor => "450x450"}
@@ -7,5 +6,5 @@ class Article < ActiveRecord::Base
 
   validates_attachment_content_type :display_img, :news_img, :content_type => /\Aimage\/.*\Z/
   
-  validates :title, :author, :article_template_id, :category, presence: true
+  validates :title, :author, :category, presence: true
 end

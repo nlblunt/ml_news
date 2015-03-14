@@ -1,5 +1,26 @@
 var appServices = angular.module('appServices', ['ngResource', 'angularFileUpload']);
 
+appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', function($resource, $q, $http, $upload)
+{
+    var self = {};
+    
+    var Article = $resource('/article/:id', {id: '@id'});
+    
+    self.addArticle = function(data)
+    {
+        $upload.upload({
+            url: '/article',
+            fields: {'title': data.title, 'body': data.body, 'category': data.category},
+            file: data.display_img
+        });
+        
+        return;
+    };
+    
+    return self;
+}]);
+
+
 appServices.factory('authorFactory', ['$resource', '$q', '$http', function($resource, $q, $http)
 {
     var self = {};
@@ -32,21 +53,6 @@ appServices.factory('authorFactory', ['$resource', '$q', '$http', function($reso
             deferred.resolve();
         });
         
-        //Setup a defer
-
-        
-        //Create the new author object
-        //var newAuthor = new Author();
-        
-        //Set author attributes
-        //newAuthor.name = author.name;
-        
-        //Save author to database
-        //newAuthor.$save()
-        //.then(function()
-        //{
-        //    deferred.resolve();
-        //});
         
         return deferred.promise;
     };
@@ -106,62 +112,5 @@ appServices.factory('authorFactory', ['$resource', '$q', '$http', function($reso
         return self;
     };
 
-    return self;
-}]);
-
-appServices.factory('articleTemplateFactory', ['$resource', '$q', function($resource, $q)
-{
-    var self = {};
-    
-    //Article Template object
-    var articleTemplate = $resource('/article_template/:id',{id:'@id'});
-    
-    self.getTemplates = function()
-    {
-        //Return the list of Authors from server
-        return articleTemplate.query();
-    };
-    
-    self.addTemplate = function(template)
-    {
-        //Adds a new template
-        
-        //Setup a defer
-        var deferred = $q.defer();
-        
-        //Create the new author object
-        var newArticleTemplate = new articleTemplate();
-        
-        //Set template attributes
-        newArticleTemplate.name = template.name;
-        
-        //Set the html
-        newArticleTemplate.html = template.html;
-        
-        //Save templater to database
-        newArticleTemplate.$save()
-        .then(function()
-        {
-            deferred.resolve();
-        });
-        
-        return deferred.promise;
-    };
-    
-    self.deleteTemplate = function(id)
-    {
-        //Deletes a template by :id from database
-        
-        var deferred = $q.defer();
-        
-        articleTemplate.delete({id:id})
-        .$promise.then(function()
-        {
-            deferred.resolve();
-        });
-        
-        return deferred.promise;
-    };
-    
     return self;
 }]);

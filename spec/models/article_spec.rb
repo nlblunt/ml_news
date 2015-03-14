@@ -9,11 +9,11 @@ RSpec.describe Article, type: :model do
   	expect(FactoryGirl.build(:article, author: nil)).not_to be_valid
   end
   
-  it "is invalid without a HTML template" do
-  	expect(FactoryGirl.build(:article, article_template_id: nil)).not_to be_valid
-  end
-  
   it "is invalid without a category" do
   	expect(FactoryGirl.build(:article, category: nil)).not_to be_valid
+  end
+  
+  it "is invalid without a body" do
+    expect(FactoryGirl.build(:article, body: nil)).not_to be_valid
   end
 end
