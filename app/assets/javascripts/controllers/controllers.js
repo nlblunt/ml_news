@@ -1,9 +1,11 @@
 var appControllers = angular.module('appControllers', ['appServices']);
 
-appControllers.controller('homeController', ['$scope', function($scope)
+appControllers.controller('homeController', ['$scope','articleFactory', function($scope, articleFactory)
 {
 	//Set <body id>
     $scope.$root.body_id = "home";
+    
+    $scope.major_news = articleFactory.getMajorArticles();
 }]);
 
 appControllers.controller('adminController', ['$scope', 'authorFactory', function($scope, authorFactory)
@@ -128,7 +130,8 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 	
 	$scope.save_article = function()
 	{
-		console.log($scope.new_article);
-		articleFactory.addArticle($scope.new_article);
+		articleFactory.addArticle($scope.new_article, $scope.author);
+		
+		$scope.new_article = "";
 	};
 }]);

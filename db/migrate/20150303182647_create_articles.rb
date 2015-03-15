@@ -6,11 +6,12 @@ class CreateArticles < ActiveRecord::Migration
       t.string :category
       t.boolean :major
       t.attachment :display_img
-      t.attachment :news_img
+      t.string :caption
       t.references :author, index: true
-
+      t.references :category, index: true
       t.timestamps null: false
     end
     add_foreign_key :articles, :authors
+    add_foreign_key :articles, :category
   end
 end

@@ -19,8 +19,16 @@
 	<section id="left">
 		<article class="left">
 			<h1>Breaking News</h1>
+			<div ng-repeat="major in major_news">
+				<div class="major-news {{major.category_short}}">
+					<div class="major-news-header {{major.category_short}}">{{major.category_name}}</div>
+					<img class="major-news-img" ng-src="{{major.display_img_major}}" />
+					<p>{{major.title}}</p>
+				</div>
+			</div>
+			
 			<div class='major-news ml'>
-     		<div class="major-news-header ml">Mindabaal League</div>
+     			<div class="major-news-header ml">Mindabaal League</div>
 				<img class="major-news-img" src="images/sw_ldf_arms.jpg" />
 				<p>League Defence Force re-mobilized</p>
 			</div>

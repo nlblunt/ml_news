@@ -9,8 +9,14 @@ class ArticleController < ApplicationController
         end
     end
     
+    def getMajorArticles
+       @articles = Article.where(major: "t")
+       
+       render :getMajorArticles
+    end
+    
     private
     def article_params
-        params.require(:article).permit(:title, :body, :category, :major, :display_img, :news_img, :author_id)
+        params.require(:article).permit(:title, :body, :category_id, :major, :display_img, :caption, :author_id)
     end
 end

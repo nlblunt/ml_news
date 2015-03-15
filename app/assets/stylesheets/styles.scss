@@ -226,6 +226,8 @@ section#right
 article.left
 {
   width: 100%;
+  float: left;
+  clear: left;
 }
 
 article.left h1

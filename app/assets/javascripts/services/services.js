@@ -4,17 +4,28 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
 {
     var self = {};
     
-    var Article = $resource('/article/:id', {id: '@id'});
+    var Article = $resource('/article/:id', {id: '@id'},
+    {
+        //Custom API
+        getMajorArticles: {method:'GET', url:'/article/getMajorArticles', isArray:true}
+    });
     
-    self.addArticle = function(data)
+    self.addArticle = function(data, author)
     {
         $upload.upload({
             url: '/article',
-            fields: {'title': data.title, 'body': data.body, 'category': data.category},
-            file: data.display_img
+            fields: {'article[title]': data.title, 'article[body]': data.body, 'article[category_id]': data.category,
+                     'article[caption]': data.caption, 'article[author_id]': author.id, 'article[major]': data.major},
+            file: data.display_img,
+            fileFormDataName: 'article[display_img]'
         });
         
         return;
+    };
+    
+    self.getMajorArticles = function()
+    {
+        return Article.getMajorArticles();
     };
     
     return self;

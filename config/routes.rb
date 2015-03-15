@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get 'users/user_check' => 'author#user_check'
+  get 'article/getMajorArticles' => 'article#getMajorArticles'
+  
   resources :author
   resources :article
   # resources :article_template
