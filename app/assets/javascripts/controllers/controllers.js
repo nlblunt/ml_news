@@ -5,7 +5,25 @@ appControllers.controller('homeController', ['$scope','articleFactory', function
 	//Set <body id>
     $scope.$root.body_id = "home";
     
+    this.show_news = true;
+    this.show_article = false;
+    
     $scope.major_news = articleFactory.getMajorArticles();
+    
+    this.showArticle = function(article)
+    {
+    	$scope.current_article = article;
+    	this.show_news = false;
+    	this.show_article = true;
+    };
+    
+    this.closeArticle = function()
+    {
+    	$scope.current_article = "";
+    	this.show_news = true;
+    	this.show_article = false;
+    };
+    
 }]);
 
 appControllers.controller('adminController', ['$scope', 'authorFactory', function($scope, authorFactory)

@@ -10,7 +10,7 @@ class ArticleController < ApplicationController
     end
     
     def getMajorArticles
-       @articles = Article.where(major: "t")
+       @articles = Article.where(major: "t").last(6)
        
        render :getMajorArticles
     end
