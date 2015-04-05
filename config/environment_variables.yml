@@ -1,0 +1,6 @@
+development:
+  S3_BUCKET_NAME_TATTOO: rogue-tattoo
+production:
+  S3_BUCKET_NAME_TATTOO: rogue-tattoo
+test:
+  S3_BUCKET_NAME_TATTOO: rogue-tattoo
