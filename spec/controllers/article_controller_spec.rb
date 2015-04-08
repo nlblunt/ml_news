@@ -9,9 +9,8 @@ RSpec.describe ArticleController, type: :controller do
 		describe "With valid params" do
 			it "Creates a new article" do
 				author = Author.create(name: "Author")
-				template = ArticleTemplate.create(name: "test", html: "HTML")
 				
-				post :create, article:{title: "Name", body: "Body Text Text", category: "Faction", author_id: author.id}
+				post :create, article:{title: "Name", body: "Body Text Text", category_id: 1, author_id: author.id}
 				
 				expect(Article.count).to eq(1)
 				expect(response.status).to eq(201)
@@ -21,7 +20,6 @@ RSpec.describe ArticleController, type: :controller do
 		describe "With invalid params" do
 			it "Doesn't create a new article" do
 				author = Author.create(name: "Author")
-				template = ArticleTemplate.create(name: "test", html: "HTML")
 				
 				post :create, article:{title: nil, body: "Body Text Text", faction: "Faction", major: true, author_id: 1}
 			

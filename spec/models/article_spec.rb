@@ -10,7 +10,7 @@ RSpec.describe Article, type: :model do
   end
   
   it "is invalid without a category" do
-  	expect(FactoryGirl.build(:article, category: nil)).not_to be_valid
+  	expect(FactoryGirl.build(:article, category_id: nil)).not_to be_valid
   end
   
   it "is invalid without a body" do
