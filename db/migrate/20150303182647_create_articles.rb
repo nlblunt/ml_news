@@ -8,7 +8,7 @@ class CreateArticles < ActiveRecord::Migration
       t.attachment :display_img
       t.string :caption
       t.references :author, index: true
-      t.references :categories, index: true
+      t.references :category, index: true
       t.timestamps null: false
     end
     add_foreign_key :articles, :authors
