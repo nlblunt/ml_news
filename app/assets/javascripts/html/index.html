@@ -16,7 +16,7 @@
 </header>
 <div id="container" ng-controller="homeController as homeCtrl">
 <div id="show-news" ng-show="homeCtrl.show_article">
-	<img ng-src="{{current_article.display_img_major}}">
+	<img class="{{img_type}}" ng-src="{{current_article.display_img}}">
 	
 	<h2>{{current_article.title}}</h2>
 	<p>{{current_article.body}}</p>
@@ -29,55 +29,31 @@
 		<article class="left">
 			<h1>Breaking News</h1>
 			<div ng-repeat="major in major_news">
-				<a href ng-click="homeCtrl.showArticle(major)">
+				<a href ng-click="homeCtrl.showArticle(major, 'img_major')">
 				<div class="major-news {{major.category_short}}">
 					<div class="major-news-header {{major.category_short}}">{{major.category_name}}</div>
-					<img class="major-news-img" ng-src="{{major.display_img_major}}" />
+					<img class="major-news-img" ng-src="{{major.display_img}}" />
 					<p>{{major.title}}</p>
 				</div>
 				</a>
-			</div>
-			
-			<div class='major-news ml'>
-     			<div class="major-news-header ml">Mindabaal League</div>
-				<img class="major-news-img" src="images/sw_ldf_arms.jpg" />
-				<p>League Defence Force re-mobilized</p>
-			</div>
-
-			<div class='major-news nae'>
-     			<div class="major-news-header nae">Nakesh</div>
-				<img class="major-news-img" src="images/sw_cantina.jpg" />
-				<p>Photino parties too hard</p>
 			</div>
 		</article>
 
 		<article class="left">
 			<h1>Minor News</h1>
-			<div class='minor-news di'>
-				<img class="minor-news-img" src="images/filler-minor.jpg"/>
-				<p>More</p>
-			</div>
-			
-			<div class='minor-news emt'>
-				<img class='minor-news-img'  src="images/filler-minor.jpg"/>
-				<p>More minor asefsesf </p>
-			</div>
-
-			<div class='minor-news nae'>
-				<img class='minor-news-img'  src="images/filler-minor.jpg"/>
-				<p>More minor asefsesf </p>
-			</div>
-
-			<div class='minor-news ml'>
-				<img class='minor-news-img'  src="images/filler-minor.jpg"/>
-				<p>More minor asefsesf </p>
+			<div ng-repeat="minor in minor_news">
+				<a href ng-click="homeCtrl.showArticle(minor, 'img_minor')">
+					<div class="minor-news {{minor.category_short}}">
+						<img class="minor-news-img" ng-src="{{minor.display_img}}" />
+						<p>{{minor.title}}</p>
+					</div>
+				</a>
 			</div>
 		</article>
 	</section>
 
 	<section id='right'>
-		<progressbar value="50">50</progressbar>
-		<alert type="danger">This is an alert</alert>
+		<h2>Coming Soon: Pod Racing League</h2>
 	</section>
 </div>
 

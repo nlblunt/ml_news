@@ -9,9 +9,11 @@ appControllers.controller('homeController', ['$scope','articleFactory', function
     this.show_article = false;
     
     $scope.major_news = articleFactory.getMajorArticles();
+    $scope.minor_news = articleFactory.getMinorArticles();
     
-    this.showArticle = function(article)
+    this.showArticle = function(article, img_class)
     {
+    	$scope.img_type = img_class;
     	$scope.current_article = article;
     	this.show_news = false;
     	this.show_article = true;

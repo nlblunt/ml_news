@@ -15,6 +15,12 @@ class ArticleController < ApplicationController
        render :getMajorArticles
     end
     
+    def getMinorArticles
+        @articles = Article.where(major: nil).last(8)
+        
+        render :getMinorArticles
+    end
+    
     private
     def article_params
         params.require(:article).permit(:title, :body, :category_id, :major, :display_img, :caption, :author_id)

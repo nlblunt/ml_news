@@ -7,7 +7,8 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
     var Article = $resource('/article/:id', {id: '@id'},
     {
         //Custom API
-        getMajorArticles: {method:'GET', url:'/article/getMajorArticles', isArray:true}
+        getMajorArticles: {method:'GET', url:'/article/getMajorArticles', isArray:true},
+        getMinorArticles: {method:'GET', url:'/article/getMinorArticles', isArray:true}
     });
     
     self.addArticle = function(data, author)
@@ -26,6 +27,11 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
     self.getMajorArticles = function()
     {
         return Article.getMajorArticles();
+    };
+    
+    self.getMinorArticles = function()
+    {
+        return Article.getMinorArticles();
     };
     
     return self;
