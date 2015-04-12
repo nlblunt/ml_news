@@ -2,68 +2,76 @@
     <title>Author: {{author.name}} Dashboard</title>
 </head>
 
-<div id="author-container" ng-controller="authorController as authorCtrl">
-    <div id="author_signin" ng-hide="signed_in">
-        <h2>Please Sign In</h2>
-        <form>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input class="form-control" type="text" name="email" ng-model="sign_in.email" placeholder="Email"/>
+<div class="container-fluid">
+    <div id="author-container" ng-controller="authorController as authorCtrl">
+        <div id="author_signin" ng-hide="signed_in">
+            <h2>Please Sign In</h2>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control" type="text" name="email" ng-model="sign_in.email" placeholder="Email"/>
+                </div>
+                <div class="from-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" name="password" ng-model="sign_in.password" placeholder="Password"/>
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="author_sign_in()">Sign In</button>
+            </form>
+        </div>
+    
+        <div id="author_signed_in" ng-show="signed_in">
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>{{author.name}}</h1>
+                    <button type="submit" class="btn btn-default" ng-click="author_sign_out()">Sign Out</button>
+                    <a href ng-click="add_news()">Add News</a>
+                </div>
             </div>
-            <div class="from-group">
-                <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" ng-model="sign_in.password" placeholder="Password"/>
-            </div>
-            <button type="submit" class="btn btn-default" ng-click="author_sign_in()">Sign In</button>
-        </form>
-    </div>
-
-    <div id="author_signed_in" ng-show="signed_in">
-        <h1>{{author.name}}</h1>
-        <button type="submit" class="btn btn-default" ng-click="author_sign_out()">Sign Out</button>
-        <a href ng-click="add_news()">Add News</a>
-        <div id="author-news" ng-show="add_news_section">
-            <div id="new-news">
-                <form>
-                    <div class="form-group">
-                        <label>Select Category</label>
-                        <select ng-model="new_article.category" name="category" class="form-control">
-                            <option selected="selected" value="1">Mindabaal</option>
-                            <option value="2">Drax</option>
-                            <option value="3">Nakesh</option>
-                            <option value="4">The Agency</option>
-                            <option value="5">Elite Medical</option>
-                            <option value="6">SWCombine</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Article Title</label>
-                        <input class="form-control" type="text" name="title" ng-model="new_article.title" placeholder="Title"/>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Article</label>
-                        <textarea rows="8" class="form-control" type="text" name="body" ng-model="new_article.body" placeholder="Article Body"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Display Image</label>
-                        <input type="file" ng-file-select ng-model="new_article.display_img" class="form-control" />
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Image Caption</label>
-                        <input class="form-control" type="text" name="caption" ng-model="new_article.caption" placeholder="Caption" />
-                    </div>
-                    
-                    <button class="btn btn-default" ng-click="save_article()">Save Article</button>
-                </form>
-                <a href ng-click="hide_news()">Cancel News</a>
-            </div>
-
-            <div id="news-list">
-
+            
+            <div id="author-news" class="row" ng-show="add_news_section">
+                <div id="new-news" class="col-sm-8">
+                    <form>
+                        <div class="form-group">
+                            <label>Select Category</label>
+                            <select ng-model="new_article.category" name="category" class="form-control">
+                                <option selected="selected" value="1">Mindabaal</option>
+                                <option value="2">Drax</option>
+                                <option value="3">Nakesh</option>
+                                <option value="4">The Agency</option>
+                                <option value="5">Elite Medical</option>
+                                <option value="6">SWCombine</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Article Title</label>
+                            <input class="form-control" type="text" name="title" ng-model="new_article.title" placeholder="Title"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Article</label>
+                            <textarea rows="8" class="form-control" type="text" name="body" ng-model="new_article.body" placeholder="Article Body"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Display Image</label>
+                            <input type="file" ng-file-select ng-model="new_article.display_img" class="form-control" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Image Caption</label>
+                            <input class="form-control" type="text" name="caption" ng-model="new_article.caption" placeholder="Caption" />
+                        </div>
+                        
+                        <button class="btn btn-default" ng-click="save_article()">Save Article</button>
+                    </form>
+                    <a href ng-click="hide_news()">Cancel News</a>
+                </div>
+                
+                <div id="list-news" class="col-sm-4">
+                    List news articles here for edit / delete
+                </div>
             </div>
         </div>
     </div>

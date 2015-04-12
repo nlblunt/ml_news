@@ -9,7 +9,6 @@ appControllers.controller('homeController', ['$scope','articleFactory', function
     this.show_article = false;
     
     $scope.major_news = articleFactory.getMajorArticles();
-    $scope.minor_news = articleFactory.getMinorArticles();
     
     this.showArticle = function(article, img_class)
     {
