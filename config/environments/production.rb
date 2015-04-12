@@ -83,7 +83,7 @@ Rails.application.configure do
     :bucket => 'ml-news', #ENV['S3_BUCKET_NAME_TATTOO'],
     :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
     :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
-    :s3_host_name => 's3-us-west-1.amazonaws.com'
+    :s3_host_name => 's3-us-west-2.amazonaws.com'
   }
   }
 end
