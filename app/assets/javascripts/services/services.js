@@ -16,7 +16,7 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
         $upload.upload({
             url: '/article',
             fields: {'article[title]': data.title, 'article[body]': data.body, 'article[category_id]': data.category,
-                     'article[caption]': data.caption, 'article[author_id]': author.id, 'true': data.major},
+                     'article[caption]': data.caption, 'article[author_id]': author.id, 'article[major]': true},
             file: data.display_img,
             fileFormDataName: 'article[display_img]'
         });
