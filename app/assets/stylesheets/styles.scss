@@ -164,20 +164,12 @@ div#news
   overflow-y: auto;
 }
 
-section#left
-{
-  width: 65%;
-  float: left;
-  border-right: solid 1px silver;
-  padding-bottom: 5px;  
-}
-
 div.major-news
 {
-  width: 44%;
-  margin :2.5%;
+  width: 100%;
+  //margin :2.5%;
   padding: 0.5%;
-  float: left;
+  //float: left;
   //background-color: white;
 
 }
@@ -321,13 +313,6 @@ div#new-news
   width: 60%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.img_minor
-{
-  margin-left: 40%;
-  margin-right: 40%;
-  width: 20%;
 }
 
 .img_major

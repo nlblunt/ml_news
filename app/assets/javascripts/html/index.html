@@ -14,50 +14,28 @@
 		</ul>
 	</nav>
 </header>
-<div id="container" ng-controller="homeController as homeCtrl">
-<div id="show-news" ng-show="homeCtrl.show_article">
-	<img class="{{img_type}}" ng-src="{{current_article.display_img}}">
+<div class="container-fluid" ng-controller="homeController as homeCtrl">
+	<div class="row" id="show-news" ng-show="homeCtrl.show_article">
+		<div class="col-sm-12">
+		<img class="{{img_type}}" ng-src="{{current_article.display_img}}">
+		
+		<h2>{{current_article.title}}</h2>
+		<pre><p>{{current_article.body}}</p>
+		<p>Article by: {{current_article.author.name}}</p>
+		<a ng-click="homeCtrl.closeArticle()">Close Article</a>
+		</pre>
+		</div>
+	</div>
 	
-	<h2>{{current_article.title}}</h2>
-	<pre><p>{{current_article.body}}</p>
-	<p>Article by: {{current_article.author.name}}</p>
-	<a ng-click="homeCtrl.closeArticle()">Close Article</a>
-	</pre>
-</div>
-
-<div id="news" ng-show="homeCtrl.show_news">
-	<section id="left">
-		<article class="left">
-			<h1>Breaking News</h1>
-			<div ng-repeat="major in major_news">
+	<div class="row" id="news" ng-show="homeCtrl.show_news">
+			<div class="col-sm-4" ng-repeat="major in major_news">
 				<a href ng-click="homeCtrl.showArticle(major, 'img_major')">
 				<div class="major-news {{major.category_short}}">
 					<div class="major-news-header {{major.category_short}}">{{major.category_name}}</div>
 					<img class="major-news-img" ng-src="{{major.display_img}}" />
 					<p>{{major.title}}</p>
 				</div>
-				</a>
+				</a>	
 			</div>
-		</article>
-
-		<article class="left">
-			<h1>Minor News</h1>
-			<div ng-repeat="minor in minor_news">
-				<a href ng-click="homeCtrl.showArticle(minor, 'img_minor')">
-					<div class="minor-news {{minor.category_short}}">
-						<img class="minor-news-img" ng-src="{{minor.display_img}}" />
-						<p>{{minor.title}}</p>
-					</div>
-				</a>
-			</div>
-		</article>
-	</section>
-
-	<section id='right'>
-		<h2>Coming Soon: Pod Racing League</h2>
-	</section>
-</div>
-
-<footer>
-</footer>
+	</div>
 </div>
