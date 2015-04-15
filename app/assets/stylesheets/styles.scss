@@ -73,7 +73,7 @@ nav#main ul li
 {
 	display: block;
 	float: left;
-	width: 16.66%;
+	width: 14.28%;
  height: 100%;
  background-color: black;
  text-align: center;
@@ -137,6 +137,11 @@ nav#main li.nav-combine
 nav#main li.nav-combine:hover
 {
 	background-color: orange;
+}
+
+nav#main li.nav-reset
+{
+  border-top: solid 5px silver;
 }
 
 div#container

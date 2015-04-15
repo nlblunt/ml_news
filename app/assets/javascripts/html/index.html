@@ -2,33 +2,36 @@
 <title>Mindabaal League News</title>
 </head>
 
+<div ng-controller="homeController as homeCtrl">
 <header>
 	<nav id="main">
 		<ul>
-			<li class="nav-ml">Mindabaal</li>
-			<li class="nav-di">Drax</li>
-			<li class="nav-nae">Nakesh</li>
-			<li class="nav-ta">The Agency</li>
-			<li class="nav-emt">Elite Medical</li>
-			<li class="nav-combine">SWCombine</li>
+			<li class="nav-ml" ng-click="homeCtrl.filter('Mindabaal')">Mindabaal</li>
+			<li class="nav-di" ng-click="homeCtrl.filter('Drax')">Drax</li>
+			<li class="nav-nae" ng-click="homeCtrl.filter('Nakesh')">Nakesh</li>
+			<li class="nav-ta" ng-click="homeCtrl.filter('The Agency')">The Agency</li>
+			<li class="nav-emt" ng-click="homeCtrl.filter('Elite Medical')">Elite Medical</li>
+			<li class="nav-combine" ng-click="homeCtrl.filter('SW Combine')">SWCombine</li>
+			<li class="nav-reset" ng-click="homeCtrl.reset()">Show All</li>
 		</ul>
 	</nav>
 </header>
-<div class="container-fluid" ng-controller="homeController as homeCtrl">
+
+<div class="container-fluid">
 	<div class="row" id="show-news" ng-show="homeCtrl.show_article">
-		<div class="col-sm-12">
-		<img class="{{img_type}}" ng-src="{{current_article.display_img}}">
-		
-		<h2>{{current_article.title}}</h2>
-		<pre><p>{{current_article.body}}</p>
-		<p>Article by: {{current_article.author.name}}</p>
-		<a ng-click="homeCtrl.closeArticle()">Close Article</a>
-		</pre>
+		<div class="col-sm-8 col-sm-offset-2">
+			<img class="{{img_type}}" ng-src="{{current_article.display_img}}">
+			
+			<h2>{{current_article.title}}</h2>
+			<pre><p>{{current_article.body}}</p>
+			<p>Article by: {{current_article.author.name}}</p>
+			<a ng-click="homeCtrl.closeArticle()">Close Article</a>
+			</pre>
 		</div>
 	</div>
 	
 	<div class="row" id="news" ng-show="homeCtrl.show_news">
-			<div class="col-sm-4" ng-repeat="major in major_news">
+			<div class="col-sm-4" ng-repeat="major in major_news | limitTo: 9 | filter: {category_name: homeCtrl.search}">
 				<a href ng-click="homeCtrl.showArticle(major, 'img_major')">
 				<div class="major-news {{major.category_short}}">
 					<div class="major-news-header {{major.category_short}}">{{major.category_name}}</div>
@@ -38,4 +41,5 @@
 				</a>	
 			</div>
 	</div>
+</div>
 </div>

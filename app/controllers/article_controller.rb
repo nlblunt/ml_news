@@ -10,7 +10,7 @@ class ArticleController < ApplicationController
     end
     
     def getMajorArticles
-       @articles = Article.where(major: "t").last(6)
+       @articles = Article.where(major: "t").order(created_at: :desc)
        
        render :getMajorArticles
     end

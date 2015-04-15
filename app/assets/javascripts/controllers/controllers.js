@@ -7,7 +7,10 @@ appControllers.controller('homeController', ['$scope','articleFactory', function
     
     this.show_news = true;
     this.show_article = false;
-    
+    this.search = 'Mindabaal';
+	
+	$scope.countlimit = 9;
+	
     $scope.major_news = articleFactory.getMajorArticles();
     
     this.showArticle = function(article, img_class)
@@ -25,6 +28,18 @@ appControllers.controller('homeController', ['$scope','articleFactory', function
     	this.show_article = false;
     };
     
+    this.filter = function(filter)
+    {
+
+    	this.search = filter;
+    	$scope.countlimit = 60;
+    };
+    
+    this.reset = function()
+    {
+    	this.search = "";
+    	$scope.countlimit = 9;
+    }
 }]);
 
 appControllers.controller('adminController', ['$scope', 'authorFactory', function($scope, authorFactory)
