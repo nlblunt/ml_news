@@ -36,11 +36,11 @@ group :test, :development do
     gem 'sqlite3'
 	gem 'rspec-rails'
 	gem 'factory_girl_rails', :require => false
-	gem 'capybara'
+	#gem 'capybara'
 	gem 'database_cleaner'
-	gem 'selenium-webdriver'
-	gem 'teaspoon'
-	gem 'phantomjs'
+	#gem 'selenium-webdriver'
+	#gem 'teaspoon'
+	#gem 'phantomjs'
 	gem 'faker'
   	gem 'guard-rspec' 
   	# Call 'debugger' anywhere in the code to stop execution and get a debugger console
