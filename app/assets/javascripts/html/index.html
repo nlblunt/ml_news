@@ -24,7 +24,7 @@
 			
 			<h2>{{current_article.title}}</h2>
 			<div id="show-container">
-			<p>{{current_article.body}}</p>
+			<p ng-bind-html="current_article.body"></p>
 			<p>Article by: {{current_article.author.name}}</p>
 			<a ng-click="homeCtrl.closeArticle()">Close Article</a>
 			</div>

@@ -1,6 +1,6 @@
-var appControllers = angular.module('appControllers', ['appServices','textAngular']);
+var appControllers = angular.module('appControllers', ['appServices','textAngular', 'ngSanitize']);
 
-appControllers.controller('homeController', ['$scope','articleFactory', function($scope, articleFactory)
+appControllers.controller('homeController', ['$scope', 'articleFactory', function($scope, articleFactory)
 {
 	//Set <body id>
     $scope.$root.body_id = "home";
