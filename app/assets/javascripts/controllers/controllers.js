@@ -1,4 +1,4 @@
-var appControllers = angular.module('appControllers', ['appServices']);
+var appControllers = angular.module('appControllers', ['appServices','textAngular']);
 
 appControllers.controller('homeController', ['$scope','articleFactory', function($scope, articleFactory)
 {

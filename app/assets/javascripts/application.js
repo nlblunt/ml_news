@@ -20,6 +20,9 @@
 //= require angular-rails-templates
 //= require angular-resource/angular-resource
 //= require angular-bootstrap/ui-bootstrap-tpls
+//= require textAngular/dist/textAngular-rangy.min
+//= require textAngular/dist/textAngular-sanitize.min
+//= require textAngular/dist/textAngular.min
 //= require directives/directives
 //= require services/services
 //= require controllers/controllers
