@@ -15,10 +15,23 @@ class ArticleController < ApplicationController
        render :getMajorArticles
     end
     
-    def getMinorArticles
-        @articles = Article.where(major: nil).last(8)
+    def getAuthorArticles
+        @articles = Article.where(author_id: params[:id]).order(created_at: :desc)
         
-        render :getMinorArticles
+        render json: @articles
+    end
+    
+    def update
+        article = Article.find(params[:id])
+        article.update_attributes(article_params)
+        
+        render nothing: true
+    end
+    
+    def show
+       article = Article.find(params[:id])
+       
+       render json: article
     end
     
     private

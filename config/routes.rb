@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'users/user_check' => 'author#user_check'
   get 'article/getMajorArticles' => 'article#getMajorArticles'
-  get 'article/getMinorArticles' => 'article#getMinorArticles'
+  get 'article/getAuthorArticles' => 'article#getAuthorArticles'
   
   resources :author
   resources :article

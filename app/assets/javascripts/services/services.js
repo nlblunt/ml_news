@@ -8,14 +8,14 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
     {
         //Custom API
         getMajorArticles: {method:'GET', url:'/article/getMajorArticles', isArray:true},
-        getMinorArticles: {method:'GET', url:'/article/getMinorArticles', isArray:true}
+        getAuthorArticles: {method:'GET', url:'/article/getAuthorArticles/', isArray:true}
     });
     
     self.addArticle = function(data, author)
     {
         $upload.upload({
             url: '/article',
-            fields: {'article[title]': data.title, 'article[body]': data.body, 'article[category_id]': data.category,
+            fields: {'article[title]': data.title, 'article[body]': data.body, 'article[category_id]': data.category_id,
                      'article[caption]': data.caption, 'article[author_id]': author.id, 'article[major]': true},
             file: data.display_img,
             fileFormDataName: 'article[display_img]'
@@ -24,14 +24,32 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
         return;
     };
     
+    self.editArticle = function(data, author)
+    {
+        console.log(data);
+         $upload.upload({
+             method: 'PATCH',
+            url: '/article/' + data.id,
+            fields: {'article[title]': data.title, 'article[body]': data.body, 'article[category_id]': data.category_id,
+                     'article[caption]': data.caption, 'article[author_id]': author.id, 'article[major]': true},
+            file: data.display_img,
+            fileFormDataName: 'article[display_img]'
+        });   
+    };
+    
+    self.getArticle = function(id)
+    {
+        return Article.get({id:id});
+    };
+    
     self.getMajorArticles = function()
     {
         return Article.getMajorArticles();
     };
     
-    self.getMinorArticles = function()
+    self.getAuthorArticles = function(id)
     {
-        return Article.getMinorArticles();
+        return Article.getAuthorArticles({id: id});
     };
     
     return self;
@@ -88,6 +106,20 @@ appServices.factory('authorFactory', ['$resource', '$q', '$http', function($reso
         
         return deferred.promise;
     };
+    
+    self.editAuthor = function(id, author)
+    {
+        var deferred = $q.defer();
+        
+        $http.patch('/author/'+ id, {user:{email: author.email, password: author.password, password_confirmation: author.password_confirmation},author:{name: author.name}})
+        .then(function(result)
+        {
+            //returns updated author info
+            deferred.resolve(result.data);
+        });
+        
+        return deferred.promise;
+    }
     
     self.authorCheck = function()
     {

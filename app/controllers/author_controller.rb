@@ -25,6 +25,16 @@ class AuthorController < ApplicationController
   		render :nothing => true, :status => :ok
 	end
 	
+	def update
+		@user = User.find(params[:id])
+		
+		if @user.update(user_params) and @user.author.update(author_params)
+			render :update
+		else
+			render status: :error, nothing: true
+		end
+	end
+	
 	def user_check
     	if(user_signed_in?)
     		@user = current_user

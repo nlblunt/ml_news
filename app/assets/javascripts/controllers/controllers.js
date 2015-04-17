@@ -120,6 +120,7 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 	$scope.signed_in = false;
 	$scope.add_news_section = false;
 	
+	this.edit = false;
 
 	authorFactory.authorCheck().$promise
 	.then(function(result)
@@ -127,6 +128,7 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 		//$scope.session = result;
 		$scope.author = result;
 		$scope.signed_in = true;
+		$scope.articles = articleFactory.getAuthorArticles($scope.author.id);
 	},
 	function()
 	{
@@ -141,6 +143,7 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 			$scope.author = result;
 			//Set the session id
 			$scope.signed_in = true;
+			$scope.articles = articleFactory.getAuthorArticles($scope.author.id);
 		});
 	};
 
@@ -150,10 +153,17 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 
 		$scope.author = "";
 		$scope.signed_in = false;
-	}
+	};
 
+	$scope.edit_author = function()
+	{
+		$scope.add_news_section = false;
+		$scope.edit_author_section = true;
+	};
+	
 	$scope.add_news = function()
 	{
+		$scope.edit_author_section = false;
 		$scope.add_news_section = true;
 	};
 
@@ -162,10 +172,47 @@ appControllers.controller('authorController', ['$scope', 'authorFactory', 'artic
 		$scope.add_news_section = false;
 	};
 	
-	$scope.save_article = function()
+	this.save_article = function()
 	{
-		articleFactory.addArticle($scope.new_article, $scope.author);
+		if(this.edit == true)
+		{
+			articleFactory.editArticle($scope.new_article, $scope.author);
+		}
+		else
+		{
+			articleFactory.addArticle($scope.new_article, $scope.author);
+		}
 		
+		this.edit = false;
 		$scope.new_article = "";
+		$scope.articles = articleFactory.getAuthorArticles($scope.author.id);
+	};
+	
+	this.edit_article = function(id)
+	{
+		$scope.new_article = articleFactory.getArticle(id);
+		console.log($scope.new_article);
+		this.edit = true;	
+	};
+	
+	this.cancel_edit = function()
+	{
+		this.edit = false;
+		$scope.new_article = null;
+	};
+	
+	$scope.editAuthorSave = function()
+	{
+		console.log($scope.author);
+		authorFactory.editAuthor($scope.author.user_id, $scope.edit_author_info)
+		.then(function(result)
+		{
+			console.log("Update Successful");
+			$scope.author = result;
+		},
+		function()
+		{
+			console.log("update Failed");
+		});
 	};
 }]);
