@@ -1,5 +1,5 @@
 /**
- * @license Angulartics v0.17.2
+ * @license Angulartics v0.19.2
  * (c) 2013 Luis Farzati http://luisfarzati.github.io/angulartics
  * License: MIT
  */
@@ -45,7 +45,6 @@ angular.module('angulartics', [])
     'eventTrack',
     'setAlias',
     'setUsername',
-    'setAlias',
     'setUserProperties',
     'setUserPropertiesOnce',
     'setSuperProperties',
@@ -101,7 +100,9 @@ angular.module('angulartics', [])
     settings: settings,
     virtualPageviews: function (value) { this.settings.pageTracking.autoTrackVirtualPages = value; },
     firstPageview: function (value) { this.settings.pageTracking.autoTrackFirstPage = value; },
-    withBase: function (value) { this.settings.pageTracking.basePath = (value) ? angular.element('base').attr('href').slice(0, -1) : ''; },
+    withBase: function (value) {
+      this.settings.pageTracking.basePath = (value) ? angular.element(document).find('base').attr('href') : '';
+    },
     withAutoBase: function (value) { this.settings.pageTracking.autoBasePath = value; },
     developerMode: function(value) { this.settings.developerMode = value; }
   };
@@ -159,7 +160,7 @@ angular.module('angulartics', [])
         if ($analytics.settings.pageTracking.autoBasePath) {
           $analytics.settings.pageTracking.basePath = $window.location.pathname;
         }
-        if ($analytics.settings.trackRelativePath) {
+        if ($analytics.settings.pageTracking.trackRelativePath) {
           var url = $analytics.settings.pageTracking.basePath + $location.url();
           $analytics.pageTrack(url, $location);
         } else {
@@ -175,7 +176,13 @@ angular.module('angulartics', [])
         /* Add the full route to the base. */
         $analytics.settings.pageTracking.basePath = $window.location.pathname + "#";
       }
+      var noRoutesOrStates = true;
       if ($injector.has('$route')) {
+        var $route = $injector.get('$route');
+        for (var route in $route.routes) {
+          noRoutesOrStates = false;
+          break;
+        }
         $rootScope.$on('$routeChangeSuccess', function (event, current) {
           if (current && (current.$$route||current).redirectTo) return;
           var url = $analytics.settings.pageTracking.basePath + $location.url();
@@ -183,9 +190,21 @@ angular.module('angulartics', [])
         });
       }
       if ($injector.has('$state')) {
+        noRoutesOrStates = false;
         $rootScope.$on('$stateChangeSuccess', function (event, current) {
           var url = $analytics.settings.pageTracking.basePath + $location.url();
           $analytics.pageTrack(url, $location);
+        });
+      }
+      if (noRoutesOrStates) {
+        $rootScope.$on('$locationChangeSuccess', function (event, current) {
+          if (current && (current.$$route || current).redirectTo) return;
+          if ($analytics.settings.pageTracking.trackRelativePath) {
+            var url = $analytics.settings.pageTracking.basePath + $location.url();
+            $analytics.pageTrack(url, $location);
+          } else {
+            $analytics.pageTrack($location.absUrl(), $location);
+          }
         });
       }
     }]);

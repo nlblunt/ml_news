@@ -1,5 +1,5 @@
 /**
- * @license Angulartics v0.17.2
+ * @license Angulartics v0.19.2
  * (c) 2013 Luis Farzati http://luisfarzati.github.io/angulartics
  * Google Tag Manager Plugin Contributed by http://github.com/danrowe49
  * License: MIT
@@ -42,8 +42,9 @@ angular.module('angulartics.google.tagmanager', ['angulartics'])
 
 	$analyticsProvider.registerEventTrack(function(action, properties){
 		var dataLayer = window.dataLayer = window.dataLayer || [];
+		properties = properties || {};
 		dataLayer.push({
-			'event': 'interaction',
+			'event': properties.event || 'interaction',
 			'target': properties.category,
 			'action': action,
 			'target-properties': properties.label,

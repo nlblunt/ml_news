@@ -1,6 +1,6 @@
-var appServices = angular.module('appServices', ['ngResource', 'angularFileUpload']);
+var appServices = angular.module('appServices', ['ngResource', 'ngFileUpload']);
 
-appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', function($resource, $q, $http, $upload)
+appServices.factory('articleFactory',['$resource', '$q', '$http', 'Upload', function($resource, $q, $http, Upload)
 {
     var self = {};
     
@@ -13,7 +13,7 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
     
     self.addArticle = function(data, author)
     {
-        $upload.upload({
+        Upload.upload({
             url: '/article',
             fields: {'article[title]': data.title, 'article[body]': data.body, 'article[category_id]': data.category_id,
                      'article[caption]': data.caption, 'article[author_id]': author.id, 'article[major]': true},
@@ -27,7 +27,7 @@ appServices.factory('articleFactory',['$resource', '$q', '$http', '$upload', fun
     self.editArticle = function(data, author)
     {
         console.log(data);
-         $upload.upload({
+         Upload.upload({
              method: 'PATCH',
             url: '/article/' + data.id,
             fields: {'article[title]': data.title, 'article[body]': data.body, 'article[category_id]': data.category_id,
